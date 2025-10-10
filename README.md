@@ -10,6 +10,7 @@ För användaren
 - Medlemmar kan logga in och boka resurser i realtid, som skrivbord, mötesrum, VR-headsets och AI-servrar.
 - Systemet visar aktuellt tillgängliga tider och uppdateras automatiskt via SignalR när någon annan gör en bokning – användaren ser direkt om en tid blir upptagen.
 - En responsiv och enkel frontend gör att systemet kan användas på dator, surfplatta och mobil.
+- En AI baserad rekommendationsfunktion som hjälper användaren att hitta lämpliga resurser och tider baserat på tillgänglighet och tidigare bokningar.
 
 För administratören
 - Administratörer har en egen panel där de kan hantera användare, resurser och bokningar.
@@ -26,8 +27,9 @@ Tekniska funktioner
 ## Vår Stack
 
 - **Backend:** ASP.NET Core (C#)
+- **Testning: xUnit och Moq (för mockning av beroenden)**
 - **Frontend:** React (Vite)
-- **Databas:** SQL (MySQL)
+- **Databas:** SQL (MySQL via Docker)
 - **Realtidskommunikation:** SignalR
 - **API (framtid):** Mockat sensor-API
 
@@ -38,7 +40,7 @@ Tekniska funktioner
 Krav på verktyg/versioner
 - **.NET SDK:** 9.0
 - **Node.js:** 18 eller 20 rekommenderas
-- **MySQL:** igång lokalt på `localhost:3307` (går att ändra i `Backend/appsettings.json`)
+- **Docker:** krävs för att köra MySQL-containern 
 
 Nedan följer en steg-för-steg guide för att köra projektet lokalt.
 
@@ -53,6 +55,19 @@ dotnet run
 ```
 
 Backend startar på `http://localhost:5022` (API-bas: `http://localhost:5022/api`).
+
+För att starta databasen:
+```bash
+docker-compose up -d
+
+docker run --name innovia-mysql \
+  -e MYSQL_ROOT_PASSWORD=yourpassword \
+  -e MYSQL_DATABASE=Innoviahub \
+  -e MYSQL_PASSWORD=yourpassword 
+  -p 3307:3306 \
+  -d mysql:8
+
+```
 
 Notera:
 - Projektet seedar data och en admin-användare vid första körningen (se `Services/DbSeeder.cs`).
