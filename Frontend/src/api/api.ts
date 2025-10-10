@@ -131,6 +131,15 @@ export const getResourceById = async (token: string,id:number) => {
   return res.data;
 };
 
+//GET RECOMMENDED BOOKING
+export const getBookingRecommendation= async( token:string)=>{
+  const res= await api.get(`/recommendation`,{
+    headers:{
+      Authorization: `Bearer ${token}`
+    }
+  })
+  return res.data;
+}
 
 
 //USERS - Ge All Users

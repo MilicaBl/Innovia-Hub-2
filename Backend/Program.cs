@@ -17,16 +17,28 @@ using Backend.Interfaces;
 using Backend.Services;
 using Backend.Models;
 using Backend.Hubs;
+using System.Net.Http.Headers;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 Env.Load();
 
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+builder.Services.AddHttpClient<IAIClient, OpenAiClient>(client =>
+{
+    client.BaseAddress= new Uri("https://api.openai.com/v1/");
+    var apiKey = Environment.GetEnvironmentVariable("OPEN_AI_KEY");
+
+    client.DefaultRequestHeaders.Authorization=new AuthenticationHeaderValue("Bearer", apiKey);
+    client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+});
+
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddControllers();
+builder.Services.AddScoped<RecommendationService>();
 builder.Services.AddSignalR();
 
 

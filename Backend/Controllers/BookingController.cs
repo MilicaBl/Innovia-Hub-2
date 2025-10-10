@@ -93,18 +93,7 @@ public class BookingController : ControllerBase
     [HttpGet("user/{userId}")]
     public async Task<IActionResult> GetUserBookings(string userId)
     {
-        var userBookings = await _context.Bookings
-        .Include(b => b.Resource)
-        .Where(b => b.UserId == userId)
-        .Select(b => new UserBookingDTO
-        {
-            bookingId = b.Id,
-            date = b.Date.ToString("yyyy-MM-dd"),
-            timeSlot = b.TimeSlot,
-            resourceName = b.Resource.ResourceName
-
-        }).ToListAsync();
-
+        var userBookings = await _bookingRepository.GetBookingsByUser(userId);
         return Ok(userBookings);
     }
 
