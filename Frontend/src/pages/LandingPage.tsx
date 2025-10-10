@@ -1,3 +1,4 @@
+import AIRecommendation from "../components/AIRecommendation";
 import Hero from "../components/Hero";
 import ResourceCards from "../components/RecourceCards";
 import { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ const LandingPage: React.FC = () => {
     <div className="landing-page">
       {/* Hero visar titel, intro och CTA (om ej inloggad) */}
       <Hero isLoggedIn={isLoggedIn} />
+      {isLoggedIn &&  <AIRecommendation />}
       {/* ResourceCards visar alla resurser och rätt knapp beroende på inloggad status */}
       <ResourceCards isLoggedIn={isLoggedIn} />
     </div>
