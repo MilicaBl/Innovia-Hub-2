@@ -21,9 +21,10 @@
 }
 .tabs {
   margin-top: 300px;
+  gap: 1rem;
 }
 .tabs .tab {
-  width: 30%;
+  width: 22%;
   min-width: 247px;
   padding: 15px 0;
   border-radius: 20px;
@@ -324,6 +325,9 @@ body.adminBg .header-nav .btn-logout:hover {
   .header {
     margin: 0 1.5rem;
   }
+  .tabs .tab {
+    min-width: 0;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -339,9 +343,6 @@ body.adminBg .header-nav .btn-logout:hover {
 }
 
 @media (max-width: 825px) {
-  .tabs .tab {
-    min-width: 0;
-  }
 }
 
 @media (max-width: 768px) {
@@ -364,6 +365,9 @@ body.adminBg .header-nav .btn-logout:hover {
   .booking-card {
     gap: 1rem;
   }
+  .tabs{
+    gap:0.2rem
+  }
 }
 
 /* Mobil */
@@ -373,5 +377,11 @@ body.adminBg .header-nav .btn-logout:hover {
   }
   .user-card p {
     margin-left: 1rem;
+  }
+  .tabs{
+    flex-wrap: wrap;
+  }
+  .tabs .tab{
+    width: 49%;
   }
 }

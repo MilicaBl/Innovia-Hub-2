@@ -1,0 +1,15 @@
+.deviceInfo{
+    display: flex;
+    align-items: center;
+    gap:1rem
+}
+.deviceInfo h3, p{
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+.realtimeData{
+    text-align: start;
+}
+.realtimeData p{
+    margin:10px
+}

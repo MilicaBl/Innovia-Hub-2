@@ -4,6 +4,11 @@ const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
+const SENSORS_API_URL=import.meta.env.VITE_SENSORS_API_URL;
+const ID:string= import.meta.env.VITE_SENSORS_ID;
+const sensorsApi=axios.create({
+  baseURL:SENSORS_API_URL,
+});
 //AUTH - Register
 export const registerUser = async (
   email: string,
@@ -198,4 +203,11 @@ export const deleteUserById = async (id: string, token: string) => {
   return res.data;
 };
 
+//SENSORS
+export const getSensorDevices= async ()=>{
+  const res=await sensorsApi.get(`/tenants/${ID}/devices`)
+  console.log(res.data);
+  return res.data
+}
+getSensorDevices()
 
