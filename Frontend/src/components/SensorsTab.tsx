@@ -32,7 +32,6 @@ const SensorsTab = () => {
    
         if (!isMounted) return;
         
-
         realtimeConnection.on("measurementReceived", (data) => {
           setRealtimeData((prev) => {
             // Om sensorn redan finns, uppdatera dess värde
@@ -45,15 +44,10 @@ const SensorsTab = () => {
               updated[existingIndex] = data; // ersätt det gamla värdet
               return updated;
             }
-
             // Annars lägg till den nya sensorn
             return [...prev, data];
           });
         });
-        // realtimeConnection.on("alertRaised",(alert)=>{
-        //     console.log("Alert recived ", alert);
-            
-        // })
       } catch (err) {
         console.log("Error setting up realtime connection: ", err);
       }
