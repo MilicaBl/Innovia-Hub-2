@@ -24,3 +24,20 @@ export interface Resource extends ResourceType {
   isBookable: boolean;
   
 }
+
+export interface Sensor{
+  id:string;
+  model:string;
+  roomId:string;
+  serial:string;
+  status:string;
+  tentantId:string;
+}
+
+export interface RealtimeSensorData{
+  deviceId:string;
+  tenantSlug:string;
+  time:string;
+  type:string;
+  value:number;
+}

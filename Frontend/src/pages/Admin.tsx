@@ -3,9 +3,13 @@ import "../styles/Admin.css";
 import BookingsTab from "../components/BookingsTab";
 import UsersTab from "../components/UsersTab";
 import ResourcesTab from "../components/ResourcesTab";
-import { connection } from "../signalRConnection";
+import { connection, realtimeConnection } from "../signalRConnection";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SensorsTab from "../components/SensorsTab";
+import { getSensorDevices } from "../api/api";
+import type { Sensor } from "../Interfaces/types";
+
 
 interface AdminProps {
   token: string;
@@ -13,6 +17,7 @@ interface AdminProps {
 
 const Admin: React.FC<AdminProps> = ({ token }) => {
   const [activeTab, setActiveTab] = useState("bookings");
+  const [sensors, setSensors] = useState<Sensor[]>([]);
 
   useEffect(() => {
     const page = localStorage.getItem("activePage");
@@ -25,6 +30,36 @@ const Admin: React.FC<AdminProps> = ({ token }) => {
     };
   }, []);
 
+    useEffect(() => {
+      const getSensors = async () => {
+        try {
+          const data = await getSensorDevices();
+          setSensors(data);
+        } catch {
+          console.log("Failed to fetch sensors");
+        }
+      };
+      getSensors();
+  
+    }, []);
+
+  useEffect(() => {
+    const tenantId = import.meta.env.VITE_SENSORS_ID;
+    const setupRealtime = async () => {
+      try {
+        while (realtimeConnection.state !== "Connected") {
+          console.log("Waiting for realtime connection...");
+          await new Promise((res) => setTimeout(res, 500));
+        }
+        await realtimeConnection.invoke("JoinTenant", "innovia", tenantId);
+      } catch (err) {
+        console.error("Error joining tenant:", err);
+      }
+    };
+  
+    setupRealtime();
+  }, []);
+  
   useEffect(() => {
     const handler = (update: any) => {
       toast.info(
@@ -37,6 +72,32 @@ const Admin: React.FC<AdminProps> = ({ token }) => {
       connection.off("ReceiveBookingUpdate", handler);
     };
   }, []);
+  useEffect(() => {
+    const handler = (alert: any) => {
+      console.log(sensors);
+      
+      const device= sensors.find((s)=>s.id===alert.deviceId)
+      console.log("device ",device);
+      
+      if(alert.type==="motion"){
+
+        toast.info(
+          alert.message && `Motion detected from ${device?.model}`
+        );
+      }else if(alert.type==="temperature") {
+        toast.error(
+          alert.message && `The temperature exceeds 28 degrees - from ${device?.model}`
+        );
+      }
+      console.log("Alert received:", alert);
+    };
+  
+    realtimeConnection.on("alertRaised", handler);
+  
+    return () => {
+      realtimeConnection.off("alertRaised", handler);
+    };
+  }, [sensors]);
 
   useEffect(() => {
     const handler = (update: any) => {
@@ -103,12 +164,19 @@ const Admin: React.FC<AdminProps> = ({ token }) => {
           }}>
           RESURSER
         </button>
+        <button 
+        className={`tab ${activeTab==="sensors"?"active":""}`} 
+        onClick={()=>{
+          setActiveTab("sensors");
+          localStorage.setItem("activePage","sensors");
+        }} > SENSORER</button>
       </nav>
 
       <div className="content">
         {activeTab === "bookings" && <BookingsTab token={token} />}
         {activeTab === "users" && <UsersTab token={token} />}
         {activeTab === "resources" && <ResourcesTab token={token} />}
+        {activeTab==="sensors"&& <SensorsTab/>}
       </div>
     </div>
   );
