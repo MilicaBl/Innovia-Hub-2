@@ -46,7 +46,7 @@ namespace Backend.Controllers
             return Ok(user);
         }
 
-        // DELETE för api/users/{id} - ta bort användare
+        // DELETE för api/users/{id} - ta bort användare genom id
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)

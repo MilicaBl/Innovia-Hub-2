@@ -29,10 +29,10 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddHttpClient<IAIClient, OpenAiClient>(client =>
 {
-    client.BaseAddress= new Uri("https://api.openai.com/v1/");
+    client.BaseAddress = new Uri("https://api.openai.com/v1/");
     var apiKey = Environment.GetEnvironmentVariable("OPEN_AI_KEY");
 
-    client.DefaultRequestHeaders.Authorization=new AuthenticationHeaderValue("Bearer", apiKey);
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
     client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
 });
 
@@ -80,8 +80,8 @@ builder.Services.AddCors(options =>
             policy.SetIsOriginAllowed(_ => true)
              .AllowAnyHeader()
              .AllowAnyMethod()
-             .AllowCredentials(); 
-        
+             .AllowCredentials();
+
         });
     });
 
@@ -121,7 +121,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
     };
-}); 
+});
 
 builder.Services.AddAuthorization();
 var app = builder.Build();
@@ -131,7 +131,7 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    
+
     DbSeeder.Seed(db, userManager, roleManager).Wait();
 }
 if (app.Environment.IsDevelopment())
