@@ -76,9 +76,7 @@ const Admin: React.FC<AdminProps> = ({ token }) => {
     const handler = (alert: any) => {
       console.log(sensors);
       
-      const device= sensors.find((s)=>s.id===alert.deviceId)
-      console.log("device ",device);
-      
+      const device= sensors.find((s)=>s.id===alert.deviceId)      
       if(alert.type==="motion"){
 
         toast.info(
