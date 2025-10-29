@@ -10,13 +10,15 @@ const SensorsTab = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setError("")
+    setLoading(true)
     const getSensors = async () => {
       try {
         setLoading(true);
         const data = await getSensorDevices();
         setSensors(data);
       } catch {
-        setError("Kunde inte ladda sensorer");
+        setError("Ingen information från sensorer tillgänglig just nu");
       } finally {
         setLoading(false);
       }
@@ -61,7 +63,8 @@ const SensorsTab = () => {
     };
   }, []);
 
-
+  if (loading) return <p>Laddar användare...</p>;
+  if (error) return <p className="error">{error}</p>;
   return (
     <div className="sensors">
       {sensors.map((s) => {
@@ -82,6 +85,7 @@ const SensorsTab = () => {
             displayValue = `${value.toFixed(1)}`;
           }
         }
+       
         return (
           <div key={s.id} className="sensorDevice">
             <div className="deviceInfo">

@@ -73,7 +73,8 @@ const FreeSlots = ({ resourceId, date }: FreeSlotsProps) => {
     const now = new Date();
     const today = new Date().toISOString().split("T")[0];
     if (normalizedDate !== today) return true;
-
+    console.log(startHour);
+    
     // om datumet är idag jämför sluttiden
     return now.getHours() < endHour;
   };
