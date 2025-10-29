@@ -1,7 +1,7 @@
 # Byggfas
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY ./Backend/ .
+COPY . .
 RUN dotnet publish -c Release -o /app/out
 
 # KÃ¶rfas
