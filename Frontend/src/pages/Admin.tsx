@@ -10,7 +10,6 @@ import SensorsTab from "../components/SensorsTab";
 import { getSensorDevices } from "../api/api";
 import type { Sensor } from "../Interfaces/types";
 
-
 interface AdminProps {
   token: string;
 }
