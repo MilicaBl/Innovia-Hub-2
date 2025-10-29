@@ -94,7 +94,7 @@ export const createBooking = async (
   token: string
 ) => {
   const res = await api.post("/booking", booking, {
-    headers: { Authorization: `Bearer ${token} ` },
+    headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
 };
