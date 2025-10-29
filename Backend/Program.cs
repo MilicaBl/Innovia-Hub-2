@@ -60,11 +60,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     if (!string.IsNullOrEmpty(envHost))
     {
         var host = envHost;
-        var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "3306";
+        var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "25060";
         var user = Environment.GetEnvironmentVariable("DB_USER") ?? "";
         var pass = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "";
         var db = Environment.GetEnvironmentVariable("DB_NAME") ?? "";
-        cs = $"Server={host};Port={port};Database={db};User={user};Password={pass};TreatTinyAsBoolean=true";
+        cs = $"Server={host};Port={port};Database={db};User ID={user};Password={pass};SslMode=Required;";
     }
     else
     {
