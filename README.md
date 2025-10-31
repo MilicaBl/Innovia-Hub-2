@@ -6,6 +6,11 @@ Detta repo innehåller projektarbetet för kursuppgiften **Innovia Hub**.
 
 Innovia Hub är ett intranät och bokningssystem för coworkingcentret Innovia Hub. Systemet är byggt för att underlätta vardagen för både medlemmar och administratörer.
 
+Länken till den publicerade appen 
+
+<a href="https://innovia-96376.ondigitalocean.app">https://innovia-96376.ondigitalocean.app/</a>
+
+
 För användaren
 - Medlemmar kan logga in och boka resurser i realtid, som skrivbord, mötesrum, VR-headsets och AI-servrar.
 - Systemet visar aktuellt tillgängliga tider och uppdateras automatiskt via SignalR när någon annan gör en bokning – användaren ser direkt om en tid blir upptagen.
@@ -23,7 +28,14 @@ Tekniska funktioner
 - Realtidskommunikation sker med SignalR, vilket gör att alla användare får live-uppdateringar utan att behöva ladda om sidan.
 - Frontend är byggd i React (Vite) och kommunicerar med backend via ett REST API och en SignalR-klient.
 
-
+IoT Sensorer - Behöver intalleras separat 
+- En admin har tillgång till sensorerna
+- Sensorer får data var 10:e sekund
+- Om datan matchar specifika regler visas en alert med informationen
+Du kan läsa mer om hur du skapar sensorer här:
+```bash
+https://github.com/MilicaBl/innovia-iot
+```
 ## Vår Stack
 
 - **Backend:** ASP.NET Core (C#)
@@ -31,7 +43,7 @@ Tekniska funktioner
 - **Frontend:** React (Vite)
 - **Databas:** SQL (MySQL via Docker)
 - **Realtidskommunikation:** SignalR
-- **API (framtid):** Mockat sensor-API
+- **API:** Mockat sensor-API
 
 ---
 
@@ -73,7 +85,7 @@ Notera:
 - Projektet seedar data och en admin-användare vid första körningen (se `Services/DbSeeder.cs`).
 - Standard-admin skapas med: användarnamn `admin`, lösenord `Admin@123`, roll `admin`.
 - Du kan inte bli admin när du registrerar dig. För att logga in som admin, använd e-postadressen `admin@example.com` och lösenordordet `Admin@123`
-- SignalR hub körs på `/bookingHub`.
+- SignalR hub körs på `/bookingHub` och `/recommendation`.
 - Databasanslutning styrs av `ConnectionStrings:DefaultConnection` i `Backend/appsettings.json`.
   - Du kan byta port/användare/lösen här eller via user secrets/ miljövariabler.
 
