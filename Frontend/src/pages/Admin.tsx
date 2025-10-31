@@ -15,6 +15,7 @@ interface AdminProps {
 }
 
 const Admin: React.FC<AdminProps> = ({ token }) => {
+  const storedToken = token || localStorage.getItem("token");
   const [activeTab, setActiveTab] = useState("bookings");
   const [sensors, setSensors] = useState<Sensor[]>([]);
 
@@ -109,7 +110,7 @@ const Admin: React.FC<AdminProps> = ({ token }) => {
     };
   }, []);
 
-  if (!token) {
+  if (!storedToken) {
     return <div>Loading...</div>;
   }
 
