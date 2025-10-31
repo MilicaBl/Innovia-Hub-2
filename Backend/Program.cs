@@ -77,7 +77,8 @@ builder.Services.AddCors(options =>
     {
         options.AddPolicy("AllowReactApp", policy =>
         {
-            policy.WithOrigins("https://innovia-96376.ondigitalocean.app/")
+            policy.WithOrigins("https://innovia-96376.ondigitalocean.app/",
+                "http://localhost:5173")
              .AllowAnyHeader()
              .AllowAnyMethod()
              .AllowCredentials();

@@ -9,8 +9,8 @@ Promise.all([
   connection.start(),
   realtimeConnection.start()
 ])
-  .then(() => console.log("✅ SignalR connected"))
-  .catch(err => console.error("❌ SignalR connection error:", err));
+  .then(() => console.log(" SignalR connected"))
+  .catch(err => console.error(" SignalR connection error:", err));
 
 
 createRoot(document.getElementById('root')!).render(
