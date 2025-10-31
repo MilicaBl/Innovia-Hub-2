@@ -36,6 +36,11 @@ Du kan läsa mer om hur du skapar sensorer här:
 ```bash
 https://github.com/MilicaBl/innovia-iot
 ```
+I Frontend behöver du i din .env lägga in följande från Sensor API:et
+```bash
+VITE_SENSORS_API_URL
+VITE_SENSORS_ID
+```
 ## Vår Stack
 
 - **Backend:** ASP.NET Core (C#)
